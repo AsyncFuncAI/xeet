@@ -212,37 +212,75 @@
     <section class="use" aria-label="Use it">
       <h2 id="use-it">Use it <a class="anchor" href="#use-it">#</a></h2>
       <p>One Rust renderer, five platforms. Pass post JSON to the WebAssembly SDK to produce a PNG offline. Public links are resolved separately through research; videos become still images.</p>
-      <p><a href="/xeet-sdk.zip">Download browser SDK</a> · <a href="/xeet-source.zip">Download source</a> · <a href="https://github.com/rauchg/xeet">Original Xeet</a></p>
+      <p><a href="/asyncfuncai-xeet-0.2.0.tgz">Download TypeScript / Node package</a> · <a href="/xeet-source.zip">Download source</a> · <a href="https://github.com/rauchg/xeet">Original Xeet</a></p>
       <div class="tabs" role="tablist" aria-label="Language">
-        <button type="button" role="tab" id="tab-ts" aria-controls="panel-ts" aria-selected="true">JavaScript</button>
+        <button type="button" role="tab" id="tab-ts" aria-controls="panel-ts" aria-selected="true">TypeScript</button>
         <button type="button" role="tab" id="tab-rust" aria-controls="panel-rust" aria-selected="false" tabindex="-1">Rust</button>
         <button type="button" role="tab" id="tab-cli" aria-controls="panel-cli" aria-selected="false" tabindex="-1">CLI</button>
       </div>
       <div class="panel" role="tabpanel" id="panel-ts" aria-labelledby="tab-ts">
-        <h3>Render a post</h3><pre><code data-lang="js">// Serve xeet.js and wasm/ from the SDK archive together.
-import { render } from "./xeet.js";
-const { png, report } = await render({
-  platform: "threads", // x | threads | facebook | instagram | tiktok
-  text: "A little thing, beautifully shared.",
-  author: { name: "You", handle: "you" },
-}, { width: 600, theme: "dark", dpr: 2 });
-const url = URL.createObjectURL(new Blob([png], { type: "image/png" }));
-document.querySelector("img").src = url;</code></pre>
-        <p>The SDK's rendering methods are asynchronous wrappers around the Rust/WASM core. Rendering uses embedded open Noto fonts and needs no browser screenshot or network after loading. Photos must be supplied as image data.</p>
-        <h3>Resolve a public link on this site</h3><pre><code data-lang="js">import { resolve, render } from "/xeet.js";
-const { post, warnings } = await resolve("https://www.threads.com/@sharenow_today/post/Dfyjw3KjZAe");
-const { png } = await render(post, { width: 600, theme: "light" });</code></pre>
-        <p>Live resolution uses this site's API and its background research service. It may take a minute. Private, deleted or restricted posts cannot be guaranteed; missing fields are left out rather than invented.</p>
+        <h3>Install</h3><pre><code data-lang="sh">npm install https://xeet.sharenow.today/asyncfuncai-xeet-0.2.0.tgz
+# In a new TypeScript project:
+npm pkg set type=module
+npm install --save-dev typescript @types/node</code></pre>
+        <p>This fork ships as a directly installable package, with TypeScript declarations and Node WASM bindings. It is not published to the npm registry. Node 20 or later.</p>
+        <h3>Render a post</h3><pre><code data-lang="js">import { writeFileSync } from &#x27;node:fs&#x27;;
+import { loadXeet, type Post } from &#x27;@asyncfuncai/xeet/node&#x27;;
+
+const xeet = await loadXeet();
+const post: Post = {
+  platform: &#x27;threads&#x27;,
+  text: &#x27;One engine, five platforms.&#x27;,
+  author: { name: &#x27;You&#x27;, handle: &#x27;you&#x27; },
+};
+const { png, report } = xeet.render(post, { width: 600, theme: &#x27;dark&#x27;, dpr: 2 });
+writeFileSync(&#x27;post.png&#x27;, png);
+console.log(report.size);
+</code></pre>
+        <pre><code data-lang="sh">npx tsc render.ts --module nodenext --target es2022 --types node
+node render.js</code></pre>
+        <p>Load once; render synchronously. The package keeps Xeet’s render, explain, renderRgba, renderMany and sheet APIs. Set platform to x, threads, facebook, instagram or tiktok.</p>
+        <h3>Resolve any public post link</h3><pre><code data-lang="js">import { resolvePublicPost } from '@asyncfuncai/xeet/node';
+const { post, warnings } = await resolvePublicPost(
+  'https://www.threads.com/@sharenow_today/post/Dfyjw3KjZAe'
+);
+const { png } = xeet.render(post, { width: 600, theme: 'dark' });</code></pre>
+        <p>Public-link lookup uses the hosted research service and its rate limits. Rendering supplied JSON is offline. The upstream xeet.resolve method remains X-specific.</p>
       </div>
       <div class="panel" role="tabpanel" id="panel-rust" aria-labelledby="tab-rust" hidden>
-        <h3>Build the renderer</h3><pre><code data-lang="sh">bash scripts/build.sh</code></pre>
-        <p>The source pins the upstream Xeet commit and applies the included Rust layout modules. X keeps the original renderer. Threads, Facebook, Instagram and TikTok use platform-specific layouts. These are recreations, not certified pixel parity.</p>
+        <h3>Prepare the Rust workspace</h3><pre><code data-lang="sh">git clone https://github.com/AsyncFuncAI/xeet.git
+cd xeet
+bash scripts/prepare.sh</code></pre>
+        <p>The build fetches the pinned upstream workspace, applies the five-platform changes and installs open fonts. It needs Rust, Node, Python 3 and git. The resulting crate is a local path dependency:</p>
+<pre><code data-lang="toml">[dependencies]
+xeet-core = { path = "/absolute/path/to/xeet/.vendor/xeet/crates/xeet-core" }</code></pre>
+        <h3>Render without a browser or WASM</h3><pre><code data-lang="rust">use xeet_core::{model::{Post, RenderOptions, Theme}, render};
+fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
+    let post = Post {
+        platform: &quot;threads&quot;.into(),
+        text: &quot;One engine, five platforms.&quot;.into(),
+        ..Default::default()
+    };
+    let options = RenderOptions { width: 600.0, theme: Theme::Dark, dpr: 2.0, ..Default::default() };
+    let (png, report) = render::render(&amp;post, &amp;options)?;
+    std::fs::write(&quot;rust-post.png&quot;, png)?;
+    println!(&quot;{} × {}&quot;, report.size.width, report.size.height);
+    Ok(())
+}
+</code></pre>
+<pre><code data-lang="sh">cargo run --manifest-path .vendor/xeet/Cargo.toml -p xeet-core --example multiplatform --profile fast</code></pre>
       </div>
       <div class="panel" role="tabpanel" id="panel-cli" aria-labelledby="tab-cli" hidden>
-        <h3>Render from the command line</h3><pre><code data-lang="sh">node scripts/render.mjs post.json post.png dark 600
-# Public-link input also requires the authenticated research CLI:
-node scripts/render.mjs 'https://www.threads.com/@sharenow_today/post/Dfyjw3KjZAe' post.png</code></pre>
-        <p>JSON rendering works locally. Live-link rendering additionally needs Python, Pillow, pillow-heif and the research CLI connection. See the source README.</p>
+        <h3>Install and render</h3><pre><code data-lang="sh">npm install https://xeet.sharenow.today/asyncfuncai-xeet-0.2.0.tgz
+npx xeet render post.json --out post.png --width 600 --theme dark
+npx xeet explain post.json
+npx xeet sheet post.json --out sheet.png --widths 390,600 --themes light,dark</code></pre>
+        <h3>Start from a link</h3><pre><code data-lang="sh">npx xeet resolve 'https://www.threads.com/@sharenow_today/post/Dfyjw3KjZAe' --out post.json
+npx xeet render post.json --out post.png</code></pre>
+        <p>The npm command uses the same Rust/WASM renderer. For a native binary, prepare the Rust workspace above, then install:</p>
+<pre><code data-lang="sh">cargo install --path .vendor/xeet/crates/xeet-cli --bin xeet --locked
+xeet render post.json --out post.png --width 600 --theme dark</code></pre>
+        <p>The native CLI keeps upstream’s render, explain and sheet commands. Resolve non-X links with the npm resolver first, then render the resulting JSON natively.</p>
       </div>
     </section>
     <section class="api" aria-label="API">

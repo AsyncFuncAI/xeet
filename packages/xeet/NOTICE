@@ -1,0 +1,7 @@
+Original Xeet by Guillermo Rauch (https://github.com/rauchg).
+All credit for the original design and renderer goes to Guillermo Rauch and the upstream contributors.
+
+Xeet extended modifies Xeet (https://github.com/rauchg/xeet), pinned at 8ddaea31d4ab16c3b14296da851b1fedda843412.
+The original copyright holders retain their rights under Apache-2.0.
+This fork adds Threads, Facebook, Instagram and TikTok layouts, open Noto font selection, a research-backed public-post resolver and platform selection to the upstream playground.
+Font aliases in code are compatibility identifiers; the embedded fonts are Noto.

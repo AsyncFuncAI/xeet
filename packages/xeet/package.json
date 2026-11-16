@@ -1,0 +1,54 @@
+{
+  "name": "@asyncfuncai/xeet",
+  "version": "0.2.0",
+  "type": "module",
+  "description": "Guillermo Rauch's Xeet extended to five social platforms",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AsyncFuncAI/xeet.git",
+    "directory": "packages/xeet"
+  },
+  "homepage": "https://xeet.sharenow.today",
+  "bugs": {
+    "url": "https://github.com/AsyncFuncAI/xeet/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "types": "./src/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./src/index.d.ts",
+      "default": "./src/index.js"
+    },
+    "./node": {
+      "types": "./src/node.d.ts",
+      "default": "./src/node.js"
+    },
+    "./abi": "./src/abi.js",
+    "./resolve": {
+      "types": "./src/resolve.d.ts",
+      "default": "./src/resolve.js"
+    },
+    "./schemas": "./src/schemas.js",
+    "./limits": "./src/limits.js",
+    "./mcp": "./src/mcp.js"
+  },
+  "files": [
+    "src",
+    "wasm/package.json",
+    "wasm/xeet_wasm.js",
+    "wasm/xeet_wasm_bg.wasm",
+    "README.md",
+    "LICENSE",
+    "NOTICE"
+  ],
+  "scripts": {},
+  "bin": {
+    "xeet": "./src/cli.js"
+  }
+}

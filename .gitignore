@@ -10,3 +10,7 @@ deploy/web/*.zip
 .tools/
 deploy/web/assets/
 *.log
+
+packages/xeet/wasm/
+*.tgz
+node_modules/
