@@ -8,7 +8,7 @@ packages=[
  ('https://archive.ubuntu.com/ubuntu/pool/main/f/fonts-noto/fonts-noto-core_20201225-2_all.deb','4fee136cb12fc197703a340e010478f780a41044339fcefbd78ed9aa96c8b617'),
  ('https://archive.ubuntu.com/ubuntu/pool/main/f/fonts-noto-color-emoji/fonts-noto-color-emoji_2.047-0ubuntu0.24.04.1_all.deb','b102b62ce6a7313315223cff5e052bdf8fc0ad162c9e961ce0dc2202bc139ce2'),
 ]
-wanted={'NotoSans-Regular.ttf','NotoSans-Bold.ttf','NotoSansArabic-Regular.ttf','NotoSansHebrew-Regular.ttf','NotoSansSymbols2-Regular.ttf','NotoColorEmoji.ttf'}
+wanted={'NotoSans-Regular.ttf','NotoSans-Bold.ttf','NotoSansArabic-Regular.ttf','NotoSansHebrew-Regular.ttf','NotoSansSymbols2-Regular.ttf','NotoColorEmoji.ttf','NotoSansMath-Regular.ttf'}
 found=set()
 for url,digest in packages:
  p=cache/url.rsplit('/',1)[1]
@@ -29,4 +29,4 @@ for url,digest in packages:
      if item.isfile() and name in wanted:
       (dest/name).write_bytes(archive.extractfile(item).read());found.add(name)
 if found!=wanted:raise SystemExit('Missing fonts: '+str(wanted-found))
-print('Downloaded and verified six open Noto font files')
+print('Downloaded and verified seven open Noto font files')

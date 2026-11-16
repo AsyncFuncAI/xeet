@@ -76,5 +76,18 @@
         1114111
       ]
     ]
+  },
+  {
+    "kind": "fallback",
+    "family": "Noto Sans Math",
+    "weight": 400,
+    "subset": "all",
+    "file": "NotoSansMath-Regular.ttf",
+    "ranges": [
+      [
+        0,
+        1114111
+      ]
+    ]
   }
 ]

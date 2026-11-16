@@ -9,7 +9,7 @@ This fork reuses [rauchg/xeet](https://github.com/rauchg/xeet)'s actual interfac
 ## TypeScript / Node
 
 ```sh
-npm install https://xeet.sharenow.today/asyncfuncai-xeet-0.2.0.tgz
+npm install https://xeet.sharenow.today/asyncfuncai-xeet-0.2.1.tgz
 ```
 
 ```ts

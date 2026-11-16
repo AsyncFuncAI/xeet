@@ -5,7 +5,7 @@ All credit for the original Xeet design and renderer goes to [Guillermo Rauch](h
 Install the built package (not published to the npm registry):
 
 ```sh
-npm install https://xeet.sharenow.today/asyncfuncai-xeet-0.2.0.tgz
+npm install https://xeet.sharenow.today/asyncfuncai-xeet-0.2.1.tgz
 ```
 
 ```ts

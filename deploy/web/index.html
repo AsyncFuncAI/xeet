@@ -212,14 +212,14 @@
     <section class="use" aria-label="Use it">
       <h2 id="use-it">Use it <a class="anchor" href="#use-it">#</a></h2>
       <p>One Rust renderer, five platforms. Pass post JSON to the WebAssembly SDK to produce a PNG offline. Public links are resolved separately through research; videos become still images.</p>
-      <p><a href="/asyncfuncai-xeet-0.2.0.tgz">Download TypeScript / Node package</a> · <a href="/xeet-source.zip">Download source</a> · <a href="https://github.com/rauchg/xeet">Original Xeet</a></p>
+      <p><a href="/asyncfuncai-xeet-0.2.1.tgz">Download TypeScript / Node package</a> · <a href="/xeet-source.zip">Download source</a> · <a href="https://github.com/rauchg/xeet">Original Xeet</a></p>
       <div class="tabs" role="tablist" aria-label="Language">
         <button type="button" role="tab" id="tab-ts" aria-controls="panel-ts" aria-selected="true">TypeScript</button>
         <button type="button" role="tab" id="tab-rust" aria-controls="panel-rust" aria-selected="false" tabindex="-1">Rust</button>
         <button type="button" role="tab" id="tab-cli" aria-controls="panel-cli" aria-selected="false" tabindex="-1">CLI</button>
       </div>
       <div class="panel" role="tabpanel" id="panel-ts" aria-labelledby="tab-ts">
-        <h3>Install</h3><pre><code data-lang="sh">npm install https://xeet.sharenow.today/asyncfuncai-xeet-0.2.0.tgz
+        <h3>Install</h3><pre><code data-lang="sh">npm install https://xeet.sharenow.today/asyncfuncai-xeet-0.2.1.tgz
 # In a new TypeScript project:
 npm pkg set type=module
 npm install --save-dev typescript @types/node</code></pre>
@@ -271,7 +271,7 @@ fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
 <pre><code data-lang="sh">cargo run --manifest-path .vendor/xeet/Cargo.toml -p xeet-core --example multiplatform --profile fast</code></pre>
       </div>
       <div class="panel" role="tabpanel" id="panel-cli" aria-labelledby="tab-cli" hidden>
-        <h3>Install and render</h3><pre><code data-lang="sh">npm install https://xeet.sharenow.today/asyncfuncai-xeet-0.2.0.tgz
+        <h3>Install and render</h3><pre><code data-lang="sh">npm install https://xeet.sharenow.today/asyncfuncai-xeet-0.2.1.tgz
 npx xeet render post.json --out post.png --width 600 --theme dark
 npx xeet explain post.json
 npx xeet sheet post.json --out sheet.png --widths 390,600 --themes light,dark</code></pre>

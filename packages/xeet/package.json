@@ -1,6 +1,6 @@
 {
   "name": "@asyncfuncai/xeet",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "type": "module",
   "description": "Guillermo Rauch's Xeet extended to five social platforms",
   "license": "Apache-2.0",
