@@ -35,8 +35,24 @@ export function trailingStatusUrl(text) {
   return STATUS_EXACT.test(url) ? url.replace(/\/$/, "") : null;
 }
 
+/** Detect a standalone social URL independently of the selected example tab. */
+export function platformFromUrl(value) {
+  const text = String(value ?? "").trim();
+  if (!/^https?:\/\/\S+$/.test(text)) return null;
+  let url;
+  try { url = new URL(text); } catch { return null; }
+  if (url.username || url.password || url.port) return null;
+  const host = url.hostname.replace(/^www\./, "");
+  if (["x.com", "twitter.com", "mobile.twitter.com"].includes(host) && STATUS_PREFIX.test(text)) return "x";
+  if (["threads.com", "threads.net"].includes(host)) return "threads";
+  if (["facebook.com", "m.facebook.com", "web.facebook.com", "fb.watch"].includes(host)) return "facebook";
+  if (["instagram.com", "m.instagram.com"].includes(host)) return "instagram";
+  if (["tiktok.com", "m.tiktok.com", "vm.tiktok.com", "vt.tiktok.com"].includes(host)) return "tiktok";
+  return null;
+}
+
 export function isStatusUrl(url) {
-  return STATUS_PREFIX.test(String(url ?? "")) || /^https:\/\/(?:www\.|m\.|vm\.|vt\.)?(?:threads\.(?:com|net)|facebook\.com|fb\.watch|instagram\.com|tiktok\.com)\//i.test(String(url??""));
+  return platformFromUrl(url) !== null;
 }
 
 export function isMediaStatusUrl(url) {

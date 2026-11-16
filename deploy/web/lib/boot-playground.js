@@ -481,6 +481,7 @@ export function bootPlayground() {
     try {
       post = await buildPost(text).finally(() => (waitingOnPost = false));
       if (token !== seq) return;
+      if (post.platform) dispatchEvent(new CustomEvent("xeet-post-platform", { detail: post.platform }));
       suite = await renderSuiteInWorker(post, mode, activeVariants, DPR, { autoExpand, fontScale });
     } catch (error) {
       if (token === seq) {
