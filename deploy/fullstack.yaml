@@ -1,0 +1,12 @@
+app_id: fsa_i10l8tv2Ae1QmWixkLJrzl1EPaRJhwkq
+slug: xeet
+bindings:
+  - name: DB
+    type: d1
+env:
+  - RESOLVER_KEY
+code:
+  worker: worker.js
+  schema: schema.sql
+  assets: web
+  spa: false

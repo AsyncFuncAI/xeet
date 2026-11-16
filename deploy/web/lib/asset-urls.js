@@ -1,0 +1,112 @@
+// Auto-mapped static media imports -> hashed immutable `/_next/static/media/*` URLs.
+const img_0 = "/assets/avatars/MerriamWebster.png";
+const img_1 = "/assets/avatars/NASAGoddard.jpg";
+const img_2 = "/assets/avatars/NFL.jpg";
+const img_3 = "/assets/avatars/adamfuhrer.jpg";
+const img_4 = "/assets/avatars/anabology.jpg";
+const img_5 = "/assets/avatars/bscholl.jpg";
+const img_6 = "/assets/avatars/ciguleva.jpg";
+const img_7 = "/assets/avatars/cursor_ai.jpg";
+const img_8 = "/assets/avatars/espn.jpg";
+const img_9 = "/assets/avatars/jack-badge.jpg";
+const img_10 = "/assets/avatars/jack.jpg";
+const img_11 = "/assets/avatars/justinbieber.jpg";
+const img_12 = "/assets/avatars/karpathy.jpg";
+const img_13 = "/assets/avatars/kyunbit.jpg";
+const img_14 = "/assets/avatars/mattpocockuk.jpg";
+const img_15 = "/assets/avatars/mihar_22.jpg";
+const img_16 = "/assets/avatars/pizzahut.jpg";
+const img_17 = "/assets/avatars/rauchg-badge.jpg";
+const img_18 = "/assets/avatars/rauchg.jpg";
+const img_19 = "/assets/avatars/restream-badge.jpg";
+const img_20 = "/assets/avatars/zackdfilms1.jpg";
+const img_21 = "/assets/cards/adamfuhrer-0.jpg";
+const img_22 = "/assets/cards/adamfuhrer-1.jpg";
+const img_23 = "/assets/cards/anabology-video.jpg";
+const img_24 = "/assets/cards/anyways.jpg";
+const img_25 = "/assets/cards/bieber-0.jpg";
+const img_26 = "/assets/cards/bieber-1.jpg";
+const img_27 = "/assets/cards/ciguleva-0.jpg";
+const img_28 = "/assets/cards/ciguleva-1.jpg";
+const img_29 = "/assets/cards/ciguleva-10.jpg";
+const img_30 = "/assets/cards/ciguleva-11.jpg";
+const img_31 = "/assets/cards/ciguleva-12.jpg";
+const img_32 = "/assets/cards/ciguleva-13.jpg";
+const img_33 = "/assets/cards/ciguleva-14.jpg";
+const img_34 = "/assets/cards/ciguleva-15.jpg";
+const img_35 = "/assets/cards/ciguleva-16.jpg";
+const img_36 = "/assets/cards/ciguleva-17.jpg";
+const img_37 = "/assets/cards/ciguleva-18.jpg";
+const img_38 = "/assets/cards/ciguleva-19.jpg";
+const img_39 = "/assets/cards/ciguleva-2.jpg";
+const img_40 = "/assets/cards/ciguleva-3.jpg";
+const img_41 = "/assets/cards/ciguleva-4.jpg";
+const img_42 = "/assets/cards/ciguleva-5.jpg";
+const img_43 = "/assets/cards/ciguleva-6.jpg";
+const img_44 = "/assets/cards/ciguleva-7.jpg";
+const img_45 = "/assets/cards/ciguleva-8.jpg";
+const img_46 = "/assets/cards/ciguleva-9.jpg";
+const img_47 = "/assets/cards/espn-video.jpg";
+const img_48 = "/assets/cards/karpathy-hackertube.jpg";
+const img_49 = "/assets/cards/mri-aion-quote.jpg";
+const img_50 = "/assets/cards/mri-video-poster.jpg";
+const img_51 = "/assets/cards/ui-sdk-poster.jpg";
+const img_52 = "/assets/cards/whataboutism.jpg";
+const img_53 = "/assets/cards/zackd-vertical.jpg";
+
+export const ASSET_URL_MAP = {
+  "./avatars/MerriamWebster.png": img_0.src ?? img_0,
+  "./avatars/NASAGoddard.jpg": img_1.src ?? img_1,
+  "./avatars/NFL.jpg": img_2.src ?? img_2,
+  "./avatars/adamfuhrer.jpg": img_3.src ?? img_3,
+  "./avatars/anabology.jpg": img_4.src ?? img_4,
+  "./avatars/bscholl.jpg": img_5.src ?? img_5,
+  "./avatars/ciguleva.jpg": img_6.src ?? img_6,
+  "./avatars/cursor_ai.jpg": img_7.src ?? img_7,
+  "./avatars/espn.jpg": img_8.src ?? img_8,
+  "./avatars/jack-badge.jpg": img_9.src ?? img_9,
+  "./avatars/jack.jpg": img_10.src ?? img_10,
+  "./avatars/justinbieber.jpg": img_11.src ?? img_11,
+  "./avatars/karpathy.jpg": img_12.src ?? img_12,
+  "./avatars/kyunbit.jpg": img_13.src ?? img_13,
+  "./avatars/mattpocockuk.jpg": img_14.src ?? img_14,
+  "./avatars/mihar_22.jpg": img_15.src ?? img_15,
+  "./avatars/pizzahut.jpg": img_16.src ?? img_16,
+  "./avatars/rauchg-badge.jpg": img_17.src ?? img_17,
+  "./avatars/rauchg.jpg": img_18.src ?? img_18,
+  "./avatars/restream-badge.jpg": img_19.src ?? img_19,
+  "./avatars/zackdfilms1.jpg": img_20.src ?? img_20,
+  "./cards/adamfuhrer-0.jpg": img_21.src ?? img_21,
+  "./cards/adamfuhrer-1.jpg": img_22.src ?? img_22,
+  "./cards/anabology-video.jpg": img_23.src ?? img_23,
+  "./cards/anyways.jpg": img_24.src ?? img_24,
+  "./cards/bieber-0.jpg": img_25.src ?? img_25,
+  "./cards/bieber-1.jpg": img_26.src ?? img_26,
+  "./cards/ciguleva-0.jpg": img_27.src ?? img_27,
+  "./cards/ciguleva-1.jpg": img_28.src ?? img_28,
+  "./cards/ciguleva-10.jpg": img_29.src ?? img_29,
+  "./cards/ciguleva-11.jpg": img_30.src ?? img_30,
+  "./cards/ciguleva-12.jpg": img_31.src ?? img_31,
+  "./cards/ciguleva-13.jpg": img_32.src ?? img_32,
+  "./cards/ciguleva-14.jpg": img_33.src ?? img_33,
+  "./cards/ciguleva-15.jpg": img_34.src ?? img_34,
+  "./cards/ciguleva-16.jpg": img_35.src ?? img_35,
+  "./cards/ciguleva-17.jpg": img_36.src ?? img_36,
+  "./cards/ciguleva-18.jpg": img_37.src ?? img_37,
+  "./cards/ciguleva-19.jpg": img_38.src ?? img_38,
+  "./cards/ciguleva-2.jpg": img_39.src ?? img_39,
+  "./cards/ciguleva-3.jpg": img_40.src ?? img_40,
+  "./cards/ciguleva-4.jpg": img_41.src ?? img_41,
+  "./cards/ciguleva-5.jpg": img_42.src ?? img_42,
+  "./cards/ciguleva-6.jpg": img_43.src ?? img_43,
+  "./cards/ciguleva-7.jpg": img_44.src ?? img_44,
+  "./cards/ciguleva-8.jpg": img_45.src ?? img_45,
+  "./cards/ciguleva-9.jpg": img_46.src ?? img_46,
+  "./cards/espn-video.jpg": img_47.src ?? img_47,
+  "./cards/karpathy-hackertube.jpg": img_48.src ?? img_48,
+  "./cards/mri-aion-quote.jpg": img_49.src ?? img_49,
+  "./cards/mri-video-poster.jpg": img_50.src ?? img_50,
+  "./cards/ui-sdk-poster.jpg": img_51.src ?? img_51,
+  "./cards/whataboutism.jpg": img_52.src ?? img_52,
+  "./cards/zackd-vertical.jpg": img_53.src ?? img_53,
+};

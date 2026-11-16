@@ -1,0 +1,259 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>xeet · five platforms</title><meta name="description" content="X, Threads, Facebook, Instagram and TikTok posts rendered to PNG in Rust and WebAssembly."><link rel="stylesheet" href="/style.css"><script>try{const s=localStorage.getItem('xeet.theme');if(s==='light'||s==='dark')document.documentElement.dataset.theme=s}catch{}</script></head><body><main>
+    <header>
+      <h1>xeet</h1>
+      <div class="header-actions"><button type="button" class="theme-toggle" id="themeToggle" hidden></button><a class="header-link" href="https://github.com/AsyncFuncAI/xeet" target="_blank" rel="noreferrer">source</a></div>
+      
+      <p id="intro">Social posts rendered to PNG without a browser, from WebAssembly, a Rust crate or the CLI.</p><p class="how">Created by <a href="https://github.com/rauchg">Guillermo Rauch</a>. All credit for the original Xeet goes to him. This fork extends his interface and Rust engine to five platforms.</p><ul class="how-points"><li><b>One engine, five feeds.</b> X, Threads, Facebook, Instagram and TikTok each get their own post layout.</li><li><b>Real post data.</b> Public links resolve through research, including profile photos, media and counts when available.</li><li><b>No screenshot browser.</b> Open Noto fonts and a Rust rasterizer paint the PNG. Video posts render as stills; this fork does not inherit upstream’s pixel-parity certification.</li></ul><nav class="platform-tabs" aria-label="Platform"><button data-platform="x">xeet <small>X</small></button><button data-platform="threads">teet <small>Threads</small></button><button data-platform="facebook">feet <small>Facebook</small></button><button data-platform="instagram">igeet <small>Instagram</small></button><button data-platform="tiktok">tikeet <small>TikTok</small></button></nav>
+    </header>
+
+    <section class="demo" aria-label="Examples">
+      <div class="cycle">
+        <h2 id="examples">Examples <a class="anchor" href="#examples" aria-label="Link to Examples">#</a></h2>
+        <nav class="cycle-nav" aria-label="Examples">
+          <button type="button" id="prev" aria-label="Previous example">←</button>
+          <span id="count">1 / 17</span>
+          <button type="button" id="next" aria-label="Next example">→</button>
+        </nav>
+      </div>
+      <p class="why"><span class="why-title" id="title">Post ID 20 (March 21, 2006)</span><span class="why-sep"> — </span><span id="why">The root post of X: twenty-year timestamp formatting across web and iOS, plus the Square affiliate badge.</span></p>
+
+      <label class="sr-only" for="input">Paste a public post link, type a post, or paste Post JSON</label>
+      <textarea id="input" rows="1" spellcheck="false" autocomplete="off" placeholder="Paste a public post link, type a post, or paste Post JSON">https://x.com/jack/status/20</textarea>
+
+      <div class="url-mode" id="urlModeRow" role="group" aria-label="How to attach the x.com post link" hidden>
+        <span class="faint-note">x.com link in post:</span>
+        <button type="button" class="preset-chip on" data-url-mode="quote">quote tweet</button>
+        <button type="button" class="preset-chip" data-url-mode="link">keep link in text</button>
+        <button type="button" class="preset-chip" data-url-mode="video">post video</button>
+      </div>
+
+      <p id="resolverNotice" class="faint-note" role="status" hidden></p><div class="composer-bar" id="composerBar">
+        <div class="composer-tools" role="toolbar" aria-label="Post options">
+          <button type="button" class="tool-link" id="btnAuthor" aria-expanded="false" aria-controls="paneAuthor">@jack</button>
+          <button type="button" class="tool-link" id="btnQuote" aria-expanded="false" aria-controls="paneQuote">+ quote</button>
+          <button type="button" class="tool-link" id="btnMedia" aria-expanded="false" aria-controls="paneMedia">+ media</button>
+          <button type="button" class="tool-link" id="btnPoll" aria-expanded="false" aria-controls="panePoll">+ poll</button>
+          <button type="button" class="tool-link" id="btnCardDismiss" hidden>card ×</button>
+        </div>
+        <div class="composer-right">
+          <button type="button" class="tool-link" id="btnResetDraft" hidden>reset</button>
+          <button type="button" class="tool-link" id="btnEditText">edit text</button>
+          <button type="button" class="tool-link" id="btnNewDraft">new draft</button>
+          <span class="char-count" id="charCount">24 / 280</span>
+        </div>
+      </div>
+
+      <div class="composer-pane" id="paneAuthor" hidden>
+        <div class="pane-row presets-bar">
+          <span class="faint-note">Presets:</span>
+          <button type="button" class="preset-chip" data-author-preset="vercel">Vercel (@vercel)</button>
+          <button type="button" class="preset-chip" data-author-preset="rauchg">Guillermo Rauch</button>
+          <button type="button" class="preset-chip" data-author-preset="nasa">NASA Goddard</button>
+          <button type="button" class="preset-chip" data-author-preset="plain">Plain</button>
+          <button type="button" class="preset-chip" data-author-preset="example">From example</button>
+        </div>
+        <div class="pane-grid">
+          <label class="field-pair"><span>Name</span><input id="aName" placeholder="Vercel" autocomplete="off"></label>
+          <label class="field-pair"><span>Handle</span><input id="aHandle" placeholder="vercel" spellcheck="false" autocomplete="off"></label>
+          <label class="field-pair"><span>Badge</span>
+            <select id="aVerified">
+              <option value="none">none</option>
+              <option value="blue">blue</option>
+              <option value="business">business (gold)</option>
+              <option value="government">government</option>
+            </select>
+          </label>
+          <label class="field-pair"><span>Affiliate</span><input id="aAffiliate" placeholder="e.g. Vercel" autocomplete="off"></label>
+          <label class="field-pair"><span>Replying to</span><input id="aReplyTo" placeholder="@handle (hides leading @)" spellcheck="false" autocomplete="off"></label>
+          <label class="field-pair"><span>Avatar image</span><input id="aAvatarFile" type="file" accept="image/png,image/jpeg,image/webp"></label>
+        </div>
+        <div class="pane-row flags-bar">
+          <label class="check-pair"><input type="checkbox" id="aSquare"><span>Square business avatar</span></label>
+          <label class="check-pair"><input type="checkbox" id="aProtected"><span>Protected account</span></label>
+        </div>
+        <div class="pane-grid counts-grid">
+          <label class="field-pair"><span>Replies</span><input id="cReplies" type="number" min="0" placeholder="0"></label>
+          <label class="field-pair"><span>Reposts</span><input id="cReposts" type="number" min="0" placeholder="0"></label>
+          <label class="field-pair"><span>Likes</span><input id="cLikes" type="number" min="0" placeholder="0"></label>
+          <label class="field-pair"><span>Views</span><input id="cViews" type="number" min="0" placeholder="0"></label>
+          <label class="field-pair"><span>Bookmarks</span><input id="cBookmarks" type="number" min="0" placeholder="0"></label>
+        </div>
+      </div>
+
+      <div class="composer-pane" id="paneQuote" hidden>
+        <div class="pane-row">
+          <label class="field-pair wide"><span>Quote from x.com URL (0 body characters)</span>
+            <input id="qUrl" placeholder="https://x.com/…/status/…" spellcheck="false" autocomplete="off">
+          </label>
+        </div>
+        <p class="faint-note pane-divider">Or write a custom quoted post (defaults to @vercel when handle is empty):</p>
+        <div class="pane-grid">
+          <label class="field-pair"><span>Author name</span><input id="qName" placeholder="Vercel" autocomplete="off"></label>
+          <label class="field-pair"><span>Handle</span><input id="qHandle" placeholder="vercel" spellcheck="false" autocomplete="off"></label>
+          <label class="field-pair"><span>Badge</span>
+            <select id="qVerified">
+              <option value="business">business (gold)</option>
+              <option value="blue">blue</option>
+              <option value="government">government</option>
+              <option value="none">none</option>
+            </select>
+          </label>
+        </div>
+        <label class="field-pair wide"><span>Quoted text</span>
+          <textarea id="qText" class="mini-textarea" rows="2" spellcheck="false" placeholder="What the quoted post says…"></textarea>
+        </label>
+        <div class="pane-foot">
+          <button type="button" class="text-btn" id="qClear">remove quote</button>
+        </div>
+      </div>
+
+      <div class="composer-pane" id="paneMedia" hidden>
+        <div class="pane-grid">
+          <label class="field-pair"><span>Upload images (up to 20 carousel slides)</span>
+            <input id="mFiles" type="file" accept="image/png,image/jpeg,image/webp" multiple>
+          </label>
+          <label class="field-pair"><span>ALT badge text (optional)</span>
+            <input id="mAlt" placeholder="Describe first image for ALT pill" autocomplete="off">
+          </label>
+        </div>
+        <div class="pane-row">
+          <label class="field-pair wide"><span>Or embed video from an x.com post URL</span>
+            <input id="mVideoUrl" placeholder="https://x.com/…/status/… or …/video/1" spellcheck="false" autocomplete="off">
+          </label>
+        </div>
+        <div class="pane-foot">
+          <div class="chip-list" id="mList"></div>
+          <button type="button" class="text-btn" id="mClear">clear media</button>
+        </div>
+      </div>
+
+      <div class="composer-pane" id="panePoll" hidden>
+        <div class="poll-grid">
+          <label class="field-pair"><span>Choice 1</span><input id="pChoice0" placeholder="Choice 1" maxlength="25"></label>
+          <label class="field-pair"><span>Votes 1</span><input id="pVotes0" type="number" min="0" placeholder="0"></label>
+          <label class="field-pair"><span>Choice 2</span><input id="pChoice1" placeholder="Choice 2" maxlength="25"></label>
+          <label class="field-pair"><span>Votes 2</span><input id="pVotes1" type="number" min="0" placeholder="0"></label>
+          <label class="field-pair"><span>Choice 3</span><input id="pChoice2" placeholder="Choice 3 (optional)" maxlength="25"></label>
+          <label class="field-pair"><span>Votes 3</span><input id="pVotes2" type="number" min="0" placeholder="0"></label>
+          <label class="field-pair"><span>Choice 4</span><input id="pChoice3" placeholder="Choice 4 (optional)" maxlength="25"></label>
+          <label class="field-pair"><span>Votes 4</span><input id="pVotes3" type="number" min="0" placeholder="0"></label>
+        </div>
+        <div class="pane-foot">
+          <label class="field-pair inline-pair"><span>Hours left (when votes = 0)</span><input id="pHours" type="number" min="1" max="168" value="24"></label>
+          <div class="edit-actions">
+            <button type="button" class="text-btn" id="pSample">load sample poll</button>
+            <button type="button" class="text-btn" id="pClear">clear poll</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="status-row">
+        <p class="status" id="status" role="status">Downloading WebAssembly core…</p>
+        <button type="button" class="view-code" id="customizeVariants" aria-expanded="false" aria-controls="variantsPane">variants (4)</button>
+        <button type="button" class="view-code" id="viewCode" aria-expanded="false" aria-controls="codePane">view code</button>
+        <div class="load-bar" id="loadBar" aria-hidden="true"><span id="loadFill"></span></div>
+      </div>
+
+      <div class="composer-pane variants-pane" id="variantsPane" hidden>
+        <div class="pane-row">
+          <span class="faint-note">Active row:</span>
+          <div class="chip-list" id="varActiveList"></div>
+        </div>
+        <div class="pane-row presets-bar">
+          <span class="faint-note">Toggle presets:</span>
+          <div class="chip-list" id="varPresets"></div>
+        </div>
+        <div class="pane-row add-variant-row">
+          <label class="field-pair inline-pair"><span>Surface</span>
+            <select id="varSurface">
+              <option value="web-timeline">web-timeline</option>
+              <option value="web-detail">web-detail</option>
+              <option value="ios-timeline">ios-timeline</option>
+              <option value="ios-detail">ios-detail</option>
+            </select>
+          </label>
+          <label class="field-pair inline-pair"><span>Width</span>
+            <input id="varWidth" type="number" min="100" max="600" value="430">
+          </label>
+          <label class="field-pair inline-pair"><span>DPR</span>
+            <select id="varDpr">
+              <option value="1">1×</option>
+              <option value="2" selected>2×</option>
+              <option value="3">3×</option>
+            </select>
+          </label>
+          <label class="check-pair"><input type="checkbox" id="varExpanded"><span>expanded</span></label>
+          <button type="button" class="preset-chip" id="varAdd">+ add variant</button>
+        </div>
+        <div class="pane-foot">
+          <div class="pane-row flags-bar">
+            <label class="check-pair"><input type="checkbox" id="varAutoExpand" checked><span>Auto-add expanded card when "Show more" appears</span></label>
+            <label class="field-pair inline-pair"><span>Font scale <em id="varFontScaleVal">1.00×</em></span>
+              <input id="varFontScale" type="range" min="0.8" max="1.35" step="0.05" value="1">
+            </label>
+          </div>
+          <button type="button" class="text-btn" id="varReset">reset default 4</button>
+        </div>
+      </div>
+      <div class="grid-shell" id="gridShell" data-fade-right>
+        <div class="grid" id="grid">
+          <div class="skeleton" aria-hidden="true"><div class="skeleton-box" style="width:390px;height:98px"></div><div class="skeleton-cap">timeline · 390</div></div>
+          <div class="skeleton" aria-hidden="true"><div class="skeleton-box" style="width:390px;height:172px"></div><div class="skeleton-cap">detail · 390</div></div>
+          <div class="skeleton" aria-hidden="true"><div class="skeleton-box" style="width:600px;height:98px"></div><div class="skeleton-cap">timeline · 600</div></div>
+          <div class="skeleton" aria-hidden="true"><div class="skeleton-box" style="width:382px;height:100px"></div><div class="skeleton-cap">duo · 382</div></div>
+        </div>
+      </div>
+      <div class="code-pane" id="codePane" hidden>
+        <p class="code-note">The exact data behind the previews above. Image bytes are shortened here.</p>
+        <pre><code data-lang="js" id="codeOut"></code></pre>
+      </div>
+    </section>
+
+    <section class="use" aria-label="Use it">
+      <h2 id="use-it">Use it <a class="anchor" href="#use-it">#</a></h2>
+      <p>One Rust renderer, five platforms. Pass post JSON to the WebAssembly SDK to produce a PNG offline. Public links are resolved separately through research; videos become still images.</p>
+      <p><a href="/xeet-sdk.zip">Download browser SDK</a> · <a href="/xeet-source.zip">Download source</a> · <a href="https://github.com/rauchg/xeet">Original Xeet</a></p>
+      <div class="tabs" role="tablist" aria-label="Language">
+        <button type="button" role="tab" id="tab-ts" aria-controls="panel-ts" aria-selected="true">JavaScript</button>
+        <button type="button" role="tab" id="tab-rust" aria-controls="panel-rust" aria-selected="false" tabindex="-1">Rust</button>
+        <button type="button" role="tab" id="tab-cli" aria-controls="panel-cli" aria-selected="false" tabindex="-1">CLI</button>
+      </div>
+      <div class="panel" role="tabpanel" id="panel-ts" aria-labelledby="tab-ts">
+        <h3>Render a post</h3><pre><code data-lang="js">// Serve xeet.js and wasm/ from the SDK archive together.
+import { render } from "./xeet.js";
+const { png, report } = await render({
+  platform: "threads", // x | threads | facebook | instagram | tiktok
+  text: "A little thing, beautifully shared.",
+  author: { name: "You", handle: "you" },
+}, { width: 600, theme: "dark", dpr: 2 });
+const url = URL.createObjectURL(new Blob([png], { type: "image/png" }));
+document.querySelector("img").src = url;</code></pre>
+        <p>The SDK's rendering methods are asynchronous wrappers around the Rust/WASM core. Rendering uses embedded open Noto fonts and needs no browser screenshot or network after loading. Photos must be supplied as image data.</p>
+        <h3>Resolve a public link on this site</h3><pre><code data-lang="js">import { resolve, render } from "/xeet.js";
+const { post, warnings } = await resolve("https://www.threads.com/@sharenow_today/post/Dfyjw3KjZAe");
+const { png } = await render(post, { width: 600, theme: "light" });</code></pre>
+        <p>Live resolution uses this site's API and its background research service. It may take a minute. Private, deleted or restricted posts cannot be guaranteed; missing fields are left out rather than invented.</p>
+      </div>
+      <div class="panel" role="tabpanel" id="panel-rust" aria-labelledby="tab-rust" hidden>
+        <h3>Build the renderer</h3><pre><code data-lang="sh">bash scripts/build.sh</code></pre>
+        <p>The source pins the upstream Xeet commit and applies the included Rust layout modules. X keeps the original renderer. Threads, Facebook, Instagram and TikTok use platform-specific layouts. These are recreations, not certified pixel parity.</p>
+      </div>
+      <div class="panel" role="tabpanel" id="panel-cli" aria-labelledby="tab-cli" hidden>
+        <h3>Render from the command line</h3><pre><code data-lang="sh">node scripts/render.mjs post.json post.png dark 600
+# Public-link input also requires the authenticated research CLI:
+node scripts/render.mjs 'https://www.threads.com/@sharenow_today/post/Dfyjw3KjZAe' post.png</code></pre>
+        <p>JSON rendering works locally. Live-link rendering additionally needs Python, Pillow, pillow-heif and the research CLI connection. See the source README.</p>
+      </div>
+    </section>
+    <section class="api" aria-label="API">
+      <h2 id="api">API <a class="anchor" href="#api">#</a></h2>
+      <h3>Rendering</h3><pre><code data-lang="js">await render(post, options)       // { png, report }
+await explain(post, options)      // layout report
+await renderRgba(post, options)   // { width, height, rgba, report }
+await renderBatch(post, options)  // one rendered result per options object
+await resolve(publicPostUrl)      // { post, warnings, source }; hosted API</code></pre>
+      <h3>Options and limits</h3>
+      <p>Choose light or dark, width, device-pixel ratio, font scale and surface. X retains Xeet's timeline/detail behavior. The other platforms use their own single-post layouts; TikTok uses a portrait video still. Instagram and Facebook show the first carousel image. The example snapshots are public posts fetched on November 16, 2026.</p>
+      <p>Live lookup is cached for one hour and limited to 12 requests per address per hour and 150 new posts daily. It depends on the studio computer's research service. Drafts, examples and JSON rendering remain available if that service is offline.</p>
+    </section>
+  </main><script type="module" src="/main.js"></script></body></html>

@@ -1,0 +1,12 @@
+.vendor/
+deploy/web/wasm/
+*.png
+.studio-port
+secrets*.json
+.sharenow*
+deploy/web/*.zip
+
+.python-deps/
+.tools/
+deploy/web/assets/
+*.log

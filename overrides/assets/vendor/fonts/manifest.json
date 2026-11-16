@@ -1,0 +1,80 @@
+[
+  {
+    "kind": "chirp",
+    "family": "TwitterChirp",
+    "weight": 400,
+    "subset": "all",
+    "file": "NotoSans-Regular.ttf",
+    "ranges": [
+      [
+        0,
+        1114111
+      ]
+    ]
+  },
+  {
+    "kind": "chirp",
+    "family": "TwitterChirp",
+    "weight": 700,
+    "subset": "all",
+    "file": "NotoSans-Bold.ttf",
+    "ranges": [
+      [
+        0,
+        1114111
+      ]
+    ]
+  },
+  {
+    "kind": "emoji",
+    "family": "Apple Color Emoji",
+    "weight": 400,
+    "subset": "emoji",
+    "file": "NotoColorEmoji.ttf",
+    "ranges": [
+      [
+        0,
+        1114111
+      ]
+    ]
+  },
+  {
+    "kind": "fallback",
+    "family": "Noto Sans Arabic",
+    "weight": 400,
+    "subset": "all",
+    "file": "NotoSansArabic-Regular.ttf",
+    "ranges": [
+      [
+        0,
+        1114111
+      ]
+    ]
+  },
+  {
+    "kind": "fallback",
+    "family": "Noto Sans Hebrew",
+    "weight": 400,
+    "subset": "all",
+    "file": "NotoSansHebrew-Regular.ttf",
+    "ranges": [
+      [
+        0,
+        1114111
+      ]
+    ]
+  },
+  {
+    "kind": "fallback",
+    "family": "Noto Sans Symbols 2",
+    "weight": 400,
+    "subset": "all",
+    "file": "NotoSansSymbols2-Regular.ttf",
+    "ranges": [
+      [
+        0,
+        1114111
+      ]
+    ]
+  }
+]
