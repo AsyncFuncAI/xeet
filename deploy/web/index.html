@@ -251,7 +251,7 @@ const { png } = xeet.render(post, { width: 600, theme: 'dark' });</code></pre>
         <h3>Prepare the Rust workspace</h3><pre><code data-lang="sh">git clone https://github.com/AsyncFuncAI/xeet.git
 cd xeet
 bash scripts/prepare.sh</code></pre>
-        <p>The build fetches the pinned upstream workspace, applies the five-platform changes and installs open fonts. It needs Rust, Node, Python 3 and git. The resulting crate is a local path dependency:</p>
+        <p>The build fetches the pinned upstream workspace, applies the five-platform changes and installs open fonts. It needs Rust, Node, Python 3 with venv and git. The resulting crate is a local path dependency:</p>
 <pre><code data-lang="toml">[dependencies]
 xeet-core = { path = "/absolute/path/to/xeet/.vendor/xeet/crates/xeet-core" }</code></pre>
         <h3>Render without a browser or WASM</h3><pre><code data-lang="rust">use xeet_core::{model::{Post, RenderOptions, Theme}, render};

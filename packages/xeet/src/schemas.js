@@ -36,6 +36,7 @@ const authorSchema = {
 };
 
 const postProps = {
+    platform: { type: "string", enum: ["x", "threads", "facebook", "instagram", "tiktok"] },
     text: {
       type: "string",
       description:

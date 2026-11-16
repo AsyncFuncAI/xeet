@@ -46,7 +46,7 @@ cargo run --manifest-path .vendor/xeet/Cargo.toml -p xeet-core --example multipl
 
 ## Build
 
-On macOS or Linux, install Rust, Python 3, Node and git. Run `bash scripts/build.sh`. The script fetches pinned upstream source, applies `overrides/`, downloads the checksummed open Noto font bundle and builds WASM. It copies the upstream example images and Geist fonts and packages the installable TypeScript/Node SDK and source downloads. Generated binaries, images and credentials are not committed.
+On macOS or Linux, install Rust, Python 3, Node and git. Run `bash scripts/build.sh`. The script fetches pinned upstream source, applies `overrides/`, downloads the checksummed open Noto font packages and builds WASM. It copies the upstream example images and Geist fonts and packages the installable TypeScript/Node SDK and source downloads. Generated binaries, images and credentials are not committed.
 
 `node scripts/render.mjs post.json post.png dark 600` renders offline. `post.platform` is `x`, `threads`, `facebook`, `instagram` or `tiktok`. Omitted platform preserves upstream X behavior. Browser SDK methods are async; serve `deploy/web/xeet.js` alongside `wasm/`. The source build generates both.
 
